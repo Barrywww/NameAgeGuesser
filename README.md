@@ -4,6 +4,13 @@ call an external API, and see what age a back-end server think that name is.
 
 Implemented with React + TypeScript.
 
+## How to Run
+Clone the repo, and `cd` into the repo directory.
+
+`npm install`
+
+`npm start`
+
 ## Preview
 ### Desktop Version
 <img width="1031" alt="image" src="https://user-images.githubusercontent.com/36621849/204629041-c57c4ac0-de8c-41fb-8020-429ca02c144a.png">
