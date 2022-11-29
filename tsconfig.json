@@ -15,7 +15,8 @@
       "paths": {
         "@api": ["api"],
         "@model": ["model"],
-        "@view/*": ["view/*"]
+        "@view/*": ["view/*"],
+        "@component/*": ["component/*"]
       }
     },
     "exclude": [

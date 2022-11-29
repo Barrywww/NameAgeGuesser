@@ -1,0 +1,39 @@
+#input-form {
+  label {
+    display: block;
+  }
+
+  input {
+    margin: 10px 10px 10px 0;
+    padding: 0;
+    border: none;
+    outline: 2px grey solid;
+    line-height: 2rem;
+    width: 12rem;
+  }
+  button {
+    border: none;
+    outline: 2px grey solid;
+    line-height: 2rem;
+    width: 5rem;
+    background-color: #fff;
+    color: #000;
+  }
+
+  button:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    button {
+      width: 100%;
+    }
+    input {
+      margin: 10px 0;
+      width: 100%;
+    }
+  }
+}

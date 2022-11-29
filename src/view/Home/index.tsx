@@ -1,62 +1,40 @@
-import React, { useCallback, useState } from "react"
-
-import { getAgeByName } from "@api"
+import React, { useCallback, useEffect, useState } from "react"
+import { NameForm } from "@component/NameForm"
 import { NameAge } from "@model"
-import { UserFormData } from "@model"
 
 import "./index.less"
 
 export const Home = () => {
+    const [odd, setOdd] = useState<boolean>(false);
     const [listData, setListData] = useState<NameAge[]>([])
     const [totalGuesses, setTotalGuesses] = useState<number>(0)
-    const [formData, setFormData] = useState<UserFormData>({ name: "" })
 
-    const onFormChange = useCallback((event: React.FormEvent<HTMLInputElement>): void => {
-        setFormData({
-            name: event.currentTarget.value
-        })
-    }, [formData])
-
-    const onFormSubmit = useCallback(async (event: React.SyntheticEvent) => {
-        event.preventDefault();
-        if (formData.name.trim() === "") {
-            alert("Please input a valida name")
-            return
-        }
-
-        const age = await getAgeByName(formData.name)
+    const updateListData = useCallback((name: string, age: number) => {
         listData.push({
-            name: formData.name,
+            name: name,
             age: age
         })
-
-        setFormData({ name: "" })
         setListData(listData)
         setTotalGuesses(totalGuesses + 1)
-    }, [totalGuesses, formData, listData])
+    }, [listData, totalGuesses])
+
+    useEffect(() => {
+        setOdd(!(totalGuesses % 2 === 0))
+    }, [totalGuesses])
 
     return (
         <div id="app-wrapper">
             <div id="header">Name Age Guesser</div>
             <div id="app-body">
-                <div>
-                    <h2 id="total">Total Guesses: {totalGuesses === 0 ? "X" : totalGuesses}</h2>
-                    {totalGuesses > 0 && (
-                        <span id="greeting">What an {totalGuesses % 2 === 0 ? "even" : "odd"} number of guesses!</span>
+                <div id="total">
+                    <h2>Total Guesses: {totalGuesses === 0 ? "X" : totalGuesses}</h2>
+                    {(totalGuesses > 0 && odd) && (
+                        <span>What an odd number of guesses!</span>
                     )}
                 </div>
-                <form id="input-form" onSubmit={onFormSubmit}>
-                    <label>Please enter a name here:</label>
-                    <br/>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={onFormChange}/>
-                    <button type="submit">Submit</button>
-                </form>
+                <NameForm updateListData={updateListData}/>
                 <div id="result-wrapper">
-                    <h2>All guesses:</h2>
+                    <h2>All Guesses:</h2>
                     <ul>
                         {listData.map((i: NameAge) => (
                             <li>{i.name} - {i.age}</li>
