@@ -4,12 +4,20 @@ import { NameAge } from "@model"
 
 import "./index.less"
 
+/**
+ * Homepage screen for the application
+ * @constructor
+ */
 export const Home = () => {
-    const [odd, setOdd] = useState<boolean>(false);
+    // detect if the current number of guesses is a odd number.
+    const [odd, setOdd] = useState<boolean>(false)
+    // store guess results
     const [listData, setListData] = useState<NameAge[]>([])
+    // counter of guesses
     const [totalGuesses, setTotalGuesses] = useState<number>(0)
 
     const updateListData = useCallback((name: string, age: number) => {
+        // update guess results on successful submission of form.
         listData.push({
             name: name,
             age: age
@@ -19,6 +27,7 @@ export const Home = () => {
     }, [listData, totalGuesses])
 
     useEffect(() => {
+        // check if the current number of guesses is odd.
         setOdd(!(totalGuesses % 2 === 0))
     }, [totalGuesses])
 
